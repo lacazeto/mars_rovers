@@ -107,26 +107,39 @@ function drawGrid() {
 
 //point and move rover
 function moveRover(event){
-  if (event.keycode === 70){ //key "f"
+  if (event.key === "f"){ 
     goForward(myRover);
     logPosition();
+    drawGrid();
   }
-  else if (event.keycode === 66){ //key "b"
+  else if (event.key === "b"){ 
     goBackward(myRover);
     logPosition();
+    drawGrid();
   }
-  else if (event.keycode === 82){ //key "r"
-    turnRight(myRover);
+  else if (event.key === "l"){ 
+    turnLeft(myRover);
+    drawGrid();
   }
-  else if(event.keycode === 76){ //key "l"
+  else if(event.key === "r"){ 
     turnRight(myRover);
+    drawGrid();
   }
   else{
     console.log("Not a valid key. Try again"); 
-    //listen for a new key press
-    moveRover(event); //run function again
   }
 }
 
-drawGrid();
-logPosition();
+function execute(){
+  //get user input and save to a variable
+  var formValues = document.getElementById("frm1").value;
+  console.log(formValues);
+  //variable to split user´s input
+  var coordinates = "";
+
+  for (var i = 0; i < formValues.length; i++){
+    coordinates = formValues[i];
+    console.log(coordinates);
+  }
+}
+
