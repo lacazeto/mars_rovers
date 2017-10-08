@@ -10,19 +10,15 @@ function goForward(rover) {
   switch(rover.direction) {
     case 'N':
       rover.position[0]++
-      rover.symbol = "&#9650"
       break;
     case 'E':
       rover.position[1]++
-      rover.symbol = "&#9654"
       break;
     case 'S':
       rover.position[0]--
-      rover.symbol = "&#9660"
       break;
     case 'W':
       rover.position[1]--
-      rover.symbol = "&#9664"
       break;
   }
 }
@@ -32,19 +28,15 @@ function goBackward(rover) {
   switch(rover.direction) {
     case 'N':
       rover.position[0]--
-      rover.symbol = "&#9650"
       break;
     case 'E':
       rover.position[1]--
-      rover.symbol = "&#9654"
       break;
     case 'S':
       rover.position[0]++
-      rover.symbol = "&#9660"
       break;
     case 'W':
       rover.position[1]++
-      rover.symbol = "&#9664"
       break;
   }
 }
@@ -54,15 +46,19 @@ function turnRight(rover){
   switch(rover.direction) {
     case 'N':
       rover.direction = 'E'
+      rover.symbol = "&#9654"
       break;
     case 'E':
       rover.direction = 'S'
+      rover.symbol = "&#9660"
       break;
     case 'S':
       rover.direction = 'W'
+      rover.symbol = "&#9664"
       break;
     case 'W':
       rover.direction = 'N'
+      rover.symbol = "&#9650"
       break;
   }
 }
@@ -72,20 +68,27 @@ function turnLeft(rover){
   switch(rover.direction) {
     case 'N':
       rover.direction = 'W'
+      rover.symbol = "&#9664"
       break;
     case 'E':
       rover.direction = 'N'
+      rover.symbol = "&#9650"
       break;
     case 'S':
       rover.direction = 'E'
+      rover.symbol = "&#9654"
       break;
     case 'W':
       rover.direction = 'S'
+      rover.symbol = "&#9660"
       break;
   }
 }
 
-console.log("New Rover Position: [" + rover.position[0] + ", " + rover.position[1] + "]");
+//display position in console
+function logPosition() {
+  console.log("New Rover Position: [" + myRover.position[0] + ", " + myRover.position[1] + "]");
+}
 
 //draw grid
 function drawGrid() {
@@ -95,22 +98,22 @@ function drawGrid() {
         document.write("|" + myRover.symbol);
       }
       else{
-        document.write("| &#5867 ");
+        document.write("| <span>&#743</span> ");
       }
     }
     document.write("|" + "<br>");
   }
 }
 
-drawGrid();
-
 //point and move rover
 function moveRover(event){
   if (event.keycode === 70){ //key "f"
     goForward(myRover);
+    logPosition();
   }
   else if (event.keycode === 66){ //key "b"
     goBackward(myRover);
+    logPosition();
   }
   else if (event.keycode === 82){ //key "r"
     turnRight(myRover);
@@ -119,7 +122,11 @@ function moveRover(event){
     turnRight(myRover);
   }
   else{
+    console.log("Not a valid key. Try again"); 
     //listen for a new key press
     moveRover(event); //run function again
   }
 }
+
+drawGrid();
+logPosition();
