@@ -1,24 +1,50 @@
-//declare rover
+//declaring rover
 var myRover = {
   position: [0,0],
   direction: 'E',
   symbol: "&#9654"
 };
 
+//declaring an obstacle
+var stone = {
+  position: [Math.floor(Math.random() * 9) + 1, Math.floor(Math.random() * 9) + 1],
+  symbol: "0 "
+};
+
 //move rover forward
 function goForward(rover) {
   switch(rover.direction) {
     case 'N':
-      rover.position[0] = (((rover.position[0] - 1) % 10) + 10) % 10
+      if((((rover.position[0] - 1) % 10) + 10) % 10 === stone.position[0] && rover.position[1] === stone.position[1]){ //check if movement is permitted
+        console.log("Obstacle on the way. Can't keep going");
+      }
+      else{
+        rover.position[0] = (((rover.position[0] - 1) % 10) + 10) % 10; //move rover, wrapping around case it gets outside the grid
+      }
       break;
     case 'E':
-      rover.position[1] = (rover.position[1] + 1) % 10
+      if(((rover.position[1] + 1) % 10) === stone.position[1] && rover.position[0] === stone.position[0]){ //check if movement is permitted
+        console.log("Obstacle on the way. Can't keep going");
+      }
+      else{
+        rover.position[1] = (rover.position[1] + 1) % 10; //move rover, wrapping around case it gets outside the grid
+      }
       break;
     case 'S':
-      rover.position[0] = (rover.position[0] + 1) % 10
+      if(((rover.position[0] + 1) % 10) === stone.position[0] && rover.position[1] === stone.position[1]){ //check if movement is permitted
+        console.log("Obstacle on the way. Can't keep going");
+      }
+      else{
+        rover.position[0] = (rover.position[0] + 1) % 10 //move rover, wrapping around case it gets outside the grid
+      }
       break;
     case 'W':
-      rover.position[1] = (((rover.position[1] - 1) % 10) + 10) % 10
+      if(((((rover.position[1] - 1) % 10) + 10) % 10) === stone.position[1] && rover.position[0] === stone.position[0]){ //check if movement is permitted
+        console.log("Obstacle on the way. Can't keep going");
+      }
+      else{
+        rover.position[1] = (((rover.position[1] - 1) % 10) + 10) % 10; //move rover, wrapping around case it gets outside the grid
+      }
       break;
   }
 }
@@ -27,16 +53,36 @@ function goForward(rover) {
 function goBackward(rover) {
   switch(rover.direction) {
     case 'N':
-      rover.position[0] = (rover.position[0] + 1) % 10
+      if((rover.position[0] + 1) % 10 === stone.position[0] && rover.position[1] === stone.position[1]){ //check if movement is permitted
+        console.log("Obstacle on the way. Can't keep going");
+      }
+      else{
+        rover.position[0] = (rover.position[0] + 1) % 10; //move rover, wrapping around case it gets outside the grid
+      }
       break;
     case 'E':
-      rover.position[1] = (((rover.position[1] - 1) % 10) + 10) % 10
+      if((((rover.position[1] - 1) % 10) + 10) % 10 === stone.position[1] && rover.position[0] === stone.position[0]){ //check if movement is permitted
+        console.log("Obstacle on the way. Can't keep going");
+      }
+      else{
+        rover.position[1] = (((rover.position[1] - 1) % 10) + 10) % 10; //move rover, wrapping around case it gets outside the grid
+      }
       break;
     case 'S':
-      rover.position[0] = (((rover.position[0] - 1) % 10) + 10) % 10
+      if((((rover.position[0] - 1) % 10) + 10) % 10 === stone.position[0] && rover.position[1] === stone.position[1]){ //check if movement is permitted
+        console.log("Obstacle on the way. Can't keep going");
+      }
+      else{
+        rover.position[0] = (((rover.position[0] - 1) % 10) + 10) % 10; //move rover, wrapping around case it gets outside the grid
+      }
       break;
     case 'W':
-      rover.position[1] = (rover.position[1] + 1) % 10
+      if((rover.position[1] + 1) % 10 === stone.position[1] && rover.position[0] === stone.position[0]){ //check if movement is permitted
+        console.log("Obstacle on the way. Can't keep going");
+      }
+      else{
+        rover.position[1] = (rover.position[1] + 1) % 10; //move rover, wrapping around case it gets outside the grid
+      }
       break;
   }
 }
@@ -87,7 +133,7 @@ function turnLeft(rover){
 
 //display position in console
 function logPosition() {
-  console.log("New Rover Position: [" + myRover.position[0] + ", " + myRover.position[1] + "]");
+  console.log("Rover Position: [" + myRover.position[0] + ", " + myRover.position[1] + "]");
 }
 
 //draw grid
@@ -97,6 +143,9 @@ function drawGrid() {
     for (var columm = 0; columm < 10; columm++){
       if(myRover.position[0] === row && myRover.position[1] === columm){ //if rover is there positioned, draw it
         document.write("|" + myRover.symbol);
+      }
+      else if(stone.position[0] === row && stone.position[1] === columm){
+        document.write("| " + stone.symbol);
       }
       else{
         document.write('| <span style="color: white;">&#743</span> ');
