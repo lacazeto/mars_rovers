@@ -106,22 +106,22 @@ function drawGrid() {
 }
 
 //point and move rover
-function moveRover(event){
-  if (event.key === "f"){ 
+function moveRover(value){
+  if (value === "f"){
     goForward(myRover);
     logPosition();
     drawGrid();
   }
-  else if (event.key === "b"){ 
+  else if (value === "b"){ 
     goBackward(myRover);
     logPosition();
     drawGrid();
   }
-  else if (event.key === "l"){ 
+  else if (value === "l"){ 
     turnLeft(myRover);
     drawGrid();
   }
-  else if(event.key === "r"){ 
+  else if(value === "r"){ 
     turnRight(myRover);
     drawGrid();
   }
@@ -131,15 +131,11 @@ function moveRover(event){
 }
 
 function execute(){
-  //get user input and save to a variable
-  var formValues = document.getElementById("frm1").value;
-  console.log(formValues);
-  //variable to split user´s input
-  var coordinates = "";
-
-  for (var i = 0; i < formValues.length; i++){
-    coordinates = formValues[i];
-    console.log(coordinates);
-  }
+  var coordinates = document.getElementById("frm1").value;
+  console.log(coordinates);
+  debugger;
+  moveRover(coordinates);
 }
 
+logPosition();
+drawGrid();
