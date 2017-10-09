@@ -5,9 +5,9 @@ var myRover = {
   symbol: "&#9654"
 };
 
-//declaring an obstacle
+//declaring obstacle
 var stone = {
-  position: [Math.floor(Math.random() * 9) + 1, Math.floor(Math.random() * 9) + 1],
+  position: [Math.floor(Math.random() * 9) + 1, Math.floor(Math.random() * 9) + 1], //create random position for the obstacle, excluding the rover's spawn spot (0,0)
   symbol: "0 "
 };
 
@@ -19,7 +19,7 @@ function goForward(rover) {
         console.log("Obstacle on the way. Can't keep going");
       }
       else{
-        rover.position[0] = (((rover.position[0] - 1) % 10) + 10) % 10; //move rover, wrapping around case it gets outside the grid
+        rover.position[0] = (((rover.position[0] - 1) % 10) + 10) % 10; //move rover, wrapping around the grid case it gets outside
       }
       break;
     case 'E':
@@ -27,7 +27,7 @@ function goForward(rover) {
         console.log("Obstacle on the way. Can't keep going");
       }
       else{
-        rover.position[1] = (rover.position[1] + 1) % 10; //move rover, wrapping around case it gets outside the grid
+        rover.position[1] = (rover.position[1] + 1) % 10;  //move rover, wrapping around the grid case it gets outside
       }
       break;
     case 'S':
@@ -35,7 +35,7 @@ function goForward(rover) {
         console.log("Obstacle on the way. Can't keep going");
       }
       else{
-        rover.position[0] = (rover.position[0] + 1) % 10 //move rover, wrapping around case it gets outside the grid
+        rover.position[0] = (rover.position[0] + 1) % 10  //move rover, wrapping around the grid case it gets outside
       }
       break;
     case 'W':
@@ -43,7 +43,7 @@ function goForward(rover) {
         console.log("Obstacle on the way. Can't keep going");
       }
       else{
-        rover.position[1] = (((rover.position[1] - 1) % 10) + 10) % 10; //move rover, wrapping around case it gets outside the grid
+        rover.position[1] = (((rover.position[1] - 1) % 10) + 10) % 10;  //move rover, wrapping around the grid case it gets outside
       }
       break;
   }
@@ -57,7 +57,7 @@ function goBackward(rover) {
         console.log("Obstacle on the way. Can't keep going");
       }
       else{
-        rover.position[0] = (rover.position[0] + 1) % 10; //move rover, wrapping around case it gets outside the grid
+        rover.position[0] = (rover.position[0] + 1) % 10;  //move rover, wrapping around the grid case it gets outside
       }
       break;
     case 'E':
@@ -65,7 +65,7 @@ function goBackward(rover) {
         console.log("Obstacle on the way. Can't keep going");
       }
       else{
-        rover.position[1] = (((rover.position[1] - 1) % 10) + 10) % 10; //move rover, wrapping around case it gets outside the grid
+        rover.position[1] = (((rover.position[1] - 1) % 10) + 10) % 10;  //move rover, wrapping around the grid case it gets outside
       }
       break;
     case 'S':
@@ -73,7 +73,7 @@ function goBackward(rover) {
         console.log("Obstacle on the way. Can't keep going");
       }
       else{
-        rover.position[0] = (((rover.position[0] - 1) % 10) + 10) % 10; //move rover, wrapping around case it gets outside the grid
+        rover.position[0] = (((rover.position[0] - 1) % 10) + 10) % 10;  //move rover, wrapping around the grid case it gets outside
       }
       break;
     case 'W':
@@ -81,7 +81,7 @@ function goBackward(rover) {
         console.log("Obstacle on the way. Can't keep going");
       }
       else{
-        rover.position[1] = (rover.position[1] + 1) % 10; //move rover, wrapping around case it gets outside the grid
+        rover.position[1] = (rover.position[1] + 1) % 10;  //move rover, wrapping around the grid case it gets outside
       }
       break;
   }
@@ -138,20 +138,20 @@ function logPosition() {
 
 //draw grid
 function drawGrid() {
-  document.write('<div style="padding: 10px 0 0 0;">');
+  document.write('<div style="padding: 10px 0 0 0;">'); //separate drawn grids apart
   for (var row = 0; row < 10; row++){
     for (var columm = 0; columm < 10; columm++){
       if(myRover.position[0] === row && myRover.position[1] === columm){ //if rover is there positioned, draw it
         document.write("|" + myRover.symbol);
       }
-      else if(stone.position[0] === row && stone.position[1] === columm){
+      else if(stone.position[0] === row && stone.position[1] === columm){ //if stone is there positioned, draw it
         document.write("| " + stone.symbol);
       }
       else{
-        document.write('| <span style="color: white;">&#743</span> ');
+        document.write('| <span style="color: white;">&#743</span> '); //insert a general symbol to make grid width better aligned and make it invisible (white)
       }
     }
-    document.write("|" + "<br>");
+    document.write("|" + "<br>"); //end drawing grid line, skip to the next one
   }
   document.write("<div>");
 }
@@ -181,6 +181,7 @@ function moveRover(value){
   }
 }
 
+//main function, executed once user input is submitted
 var coordinate;
 function execute(){
   var coordinates = document.getElementById("frm1").value;
@@ -191,5 +192,6 @@ function execute(){
   }
 }
 
+//on 1st page load, display grid and roover position
 logPosition();
 drawGrid();
