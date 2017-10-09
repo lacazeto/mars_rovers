@@ -9,16 +9,16 @@ var myRover = {
 function goForward(rover) {
   switch(rover.direction) {
     case 'N':
-      rover.position[0]++
+      rover.position[0] = (((rover.position[0] - 1) % 10) + 10) % 10
       break;
     case 'E':
-      rover.position[1]++
+      rover.position[1] = (rover.position[1] + 1) % 10
       break;
     case 'S':
-      rover.position[0]--
+      rover.position[0] = (rover.position[0] + 1) % 10
       break;
     case 'W':
-      rover.position[1]--
+      rover.position[1] = (((rover.position[1] - 1) % 10) + 10) % 10
       break;
   }
 }
@@ -27,16 +27,16 @@ function goForward(rover) {
 function goBackward(rover) {
   switch(rover.direction) {
     case 'N':
-      rover.position[0]--
+      rover.position[0] = (rover.position[0] + 1) % 10
       break;
     case 'E':
-      rover.position[1]--
+      rover.position[1] = (((rover.position[1] - 1) % 10) + 10) % 10
       break;
     case 'S':
-      rover.position[0]++
+      rover.position[0] = (((rover.position[0] - 1) % 10) + 10) % 10
       break;
     case 'W':
-      rover.position[1]++
+      rover.position[1] = (rover.position[1] + 1) % 10
       break;
   }
 }
@@ -92,17 +92,19 @@ function logPosition() {
 
 //draw grid
 function drawGrid() {
+  document.write('<div style="padding: 10px 0 0 0;">');
   for (var row = 0; row < 10; row++){
     for (var columm = 0; columm < 10; columm++){
       if(myRover.position[0] === row && myRover.position[1] === columm){ //if rover is there positioned, draw it
         document.write("|" + myRover.symbol);
       }
       else{
-        document.write("| <span>&#743</span> ");
+        document.write('| <span style="color: white;">&#743</span> ');
       }
     }
     document.write("|" + "<br>");
   }
+  document.write("<div>");
 }
 
 //point and move rover
@@ -112,29 +114,32 @@ function moveRover(value){
     logPosition();
     drawGrid();
   }
-  else if (value === "b"){ 
+  else if (value === "b"){
     goBackward(myRover);
     logPosition();
     drawGrid();
   }
-  else if (value === "l"){ 
+  else if (value === "l"){
     turnLeft(myRover);
     drawGrid();
   }
-  else if(value === "r"){ 
+  else if(value === "r"){
     turnRight(myRover);
     drawGrid();
   }
   else{
-    console.log("Not a valid key. Try again"); 
+    console.log(value + " is not a valid key");
   }
 }
 
+var coordinate;
 function execute(){
   var coordinates = document.getElementById("frm1").value;
-  console.log(coordinates);
-  debugger;
-  moveRover(coordinates);
+  drawGrid();
+  for(var i = 0; i < coordinates.length; i++){
+    coordinate = coordinates[i];
+    moveRover(coordinate);
+  }
 }
 
 logPosition();
